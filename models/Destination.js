@@ -58,13 +58,28 @@ const DestinationSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    numOfReviews: {
+      type: Number,
+      default: 0,
+    },
     user: {
       type: mongoose.Types.ObjectId,
       ref: "User",
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
+
+DestinationSchema.virtual("reviews", {
+  ref: "Review",
+  localField: "_id",
+  foreignField: "destination",
+  justOne: false,
+});
+
+DestinationSchema.pre("deleteOne", { document: true }, async function () {
+  await this.model("Review").deleteMany({ destination: this._id });
+});
 
 module.exports = mongoose.model("Destination", DestinationSchema);

@@ -13,7 +13,9 @@ const getAllDestinations = async (req, res) => {
 };
 const getSingleDestination = async (req, res) => {
   const { id: destinationId } = req.params;
-  const destination = await Destination.findOne({ _id: destinationId });
+  const destination = await Destination.findOne({
+    _id: destinationId,
+  }).populate("reviews");
   if (!destination) {
     throw new CustomError.NotFoundError(
       `No destination with id ${destinationId}`

@@ -12,6 +12,9 @@ const {
   deleteDestination,
   uploadImage,
 } = require("../controllers/destinationController");
+const {
+  getSingleDestinationReviews,
+} = require("../controllers/reviewController");
 
 router
   .route("/")
@@ -25,5 +28,5 @@ router
   .get(getSingleDestination)
   .patch([authenticateUser, authorizePermissions("admin")], updateDestination)
   .delete([authenticateUser, authorizePermissions("admin")], deleteDestination);
-
+router.route("/:id/reviews").get(getSingleDestinationReviews);
 module.exports = router;
