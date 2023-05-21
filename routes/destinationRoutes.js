@@ -6,7 +6,9 @@ const {
 } = require("../middleware/authentication");
 const {
   createDestination,
+  getDestinationsTotal,
   getAllDestinations,
+  getFeaturedDestinations,
   getSingleDestination,
   updateDestination,
   deleteDestination,
@@ -20,6 +22,8 @@ router
   .route("/")
   .post([authenticateUser, authorizePermissions("admin")], createDestination)
   .get(getAllDestinations);
+router.route("/total").get(getDestinationsTotal),
+  router.route("/featured").get(getFeaturedDestinations);
 router
   .route("/uploadImage")
   .post([authenticateUser, authorizePermissions("admin")], uploadImage);

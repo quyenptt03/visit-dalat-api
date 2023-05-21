@@ -15,7 +15,6 @@ const DestinationSchema = new mongoose.Schema(
     },
     timePerTicket: {
       type: Number,
-      required: [true, "Please provide the time of ticket (minute)"],
       default: 0,
     },
     openingTime: {
@@ -46,9 +45,9 @@ const DestinationSchema = new mongoose.Schema(
       required: [true, "Please provide destination description"],
       maxLength: [2000, "Description can not be more than 2000 characters"],
     },
-    image: {
-      type: String,
-      default: "/uploads/example.png",
+    images: {
+      type: Array,
+      default: ["/uploads/example.jpeg"],
     },
     featured: {
       type: Boolean,
@@ -62,11 +61,11 @@ const DestinationSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    user: {
-      type: mongoose.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
+    // user: {
+    //   type: mongoose.Types.ObjectId,
+    //   ref: "User",
+    //   required: true,
+    // },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
