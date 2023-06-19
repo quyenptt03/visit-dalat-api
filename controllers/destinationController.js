@@ -3,7 +3,7 @@ const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
 
 const createDestination = async (req, res) => {
-  req.body.user = req.user.userId;
+  //req.body.user = req.user.userId;
   const destination = await Destination.create(req.body);
   res.status(StatusCodes.CREATED).json({ destination });
 };
