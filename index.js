@@ -1,42 +1,42 @@
-require("dotenv").config();
-require("express-async-errors");
+require('dotenv').config();
+require('express-async-errors');
 // express
-const express = require("express");
+const express = require('express');
 const app = express();
 // rest of the packages
-const morgan = require("morgan");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 //database
-const connectDB = require("./db/connectDB");
+const connectDB = require('./db/connectDB');
 // routes
-const authRouter = require("./routes/authRoutes");
-const userRouter = require("./routes/userRoutes");
-const destinationRouter = require("./routes/destinationRoutes");
-const reviewRouter = require("./routes/reviewRoutes");
-const categoryRouter = require("./routes/categoryRoutes");
-const articleRouter = require("./routes/articleRoutes");
+const authRouter = require('./routes/authRoutes');
+const userRouter = require('./routes/userRoutes');
+const destinationRouter = require('./routes/destinationRoutes');
+const reviewRouter = require('./routes/reviewRoutes');
+const categoryRouter = require('./routes/categoryRoutes');
+const articleRouter = require('./routes/articleRoutes');
 //middleware
-const notFoundMiddleware = require("./middleware/not-found.js");
-const errorHandlerMiddleware = require("./middleware/error-handler");
+const notFoundMiddleware = require('./middleware/not-found.js');
+const errorHandlerMiddleware = require('./middleware/error-handler');
 
-app.use(morgan("tiny"));
+app.use(morgan('tiny'));
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
 app.use(cors());
 
-app.use(express.static("./public"));
+app.use(express.static('./public'));
 
-app.get("/", (req, res) => {
-  res.send("Hello from my app");
+app.get('/', (req, res) => {
+  res.send('Hello from my app');
 });
 
-app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/users", userRouter);
-app.use("/api/v1/destinations", destinationRouter);
-app.use("/api/v1/reviews", reviewRouter);
-app.use("/api/v1/categories", categoryRouter);
-app.use("/api/v1/articles", articleRouter);
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/destinations', destinationRouter);
+app.use('/api/v1/reviews', reviewRouter);
+app.use('/api/v1/categories', categoryRouter);
+app.use('/api/v1/articles', articleRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
